@@ -8,7 +8,7 @@ export default function HomePage() {
       <Header />
       <div className="gap-4 max-w-[1200px] m-auto p-4">
         <MainActions />
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-col sm:flex-row">
           <TransHistory />
           <MyCards />
         </div>

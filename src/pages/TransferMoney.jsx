@@ -25,7 +25,7 @@ function TransferMoney() {
               Tới ngân hàng
             </button>
             <div
-              className={` w-[50%] h-[2px] bg-red-600 absolute transition-all duration-75 bottom-0 ${
+              className={` w-[50%] h-[2px] bg-red-600 absolute transition-all  duration-300 bottom-0 ${
                 transType == 2 ? "left-[50%]" : ""
               }`}
             ></div>
