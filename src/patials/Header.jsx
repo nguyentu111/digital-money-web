@@ -10,7 +10,7 @@ export default function Header() {
           className="p-2 w-[120px] h-[60px] px-2 cursor-pointer"
           src={logo}
         />
-        <div className="flex gap-3">
+        <div className="flex gap-3 p-2">
           <div>Nguyễn Anh Tú</div>
           <div className="hover:underline cursor-pointer"> Đăng xuất </div>
         </div>

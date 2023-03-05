@@ -7,15 +7,16 @@ export default function TransHistory() {
           Tháng 3/ 2023
         </div>
         <div className="flex gap-3 p-2">
-          <div>
-            <img className="rounded-full w-12 h-12 border-2" />
+          <div className="flex-shrink-0">
+            <img className="rounded-full w-12 h-12 border-2 " />
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-bold">
               Chuyển tiền cho Le Van Lam
             </span>
-            <div>
+            <div className="flex flex-col">
               <span>02:02pm 12/3/2023</span>
+              <span className="font-bold">10.000.000 vnd</span>
             </div>
           </div>
         </div>
