@@ -5,7 +5,7 @@ import BankingCard from "./BankingCard";
 function MyCards() {
   const [isAdding, setIsAdding] = useState(false);
   return (
-    <div className="p-4 rounded-lg shadow-lg">
+    <div className="p-4 rounded-lg shadow-lg flex-1">
       <div className="flex justify-between my-2">
         <span className="text-xl font-bold ">Thẻ của tôi</span>
         <button className="btn-primary" onClick={() => setIsAdding(!isAdding)}>
