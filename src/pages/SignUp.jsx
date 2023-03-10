@@ -2,6 +2,27 @@ import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const nav = useNavigate();
+  const mutate = useMutation(
+    (data) => {
+      return axiosClient.post("/register", data);
+    },
+    {
+      onSuccess: (result) => {
+        const rs_status = result.data.status;
+        if (rs_status === "success") {
+          toast.success("Đăng nhập thành công");
+          localStorage.setItem("user", JSON.stringify(result.data.data));
+          nav("/");
+        } else {
+          toast.error("Đăng nhập thất bại");
+          console.log(result.data);
+        }
+      },
+      onError: () => {
+        toast.error("Đăng nhập thất bại");
+      },
+    }
+  );
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="m-auto min-w-[400px] max-w-full p-4 rounded-lg shadow-lg">

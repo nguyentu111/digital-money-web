@@ -7,20 +7,25 @@ import SignUp from "./pages/SignUp";
 import WithDrawMoney from "./pages/WithDrawMoney";
 import TransferMoney from "./pages/TransferMoney";
 import { QueryClientProvider, QueryClient } from "react-query";
+import { Toaster } from "react-hot-toast";
+import AuthPage from "./pages/AuthPage";
 const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/deposit" element={<DepositMoney />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route element={<AuthPage />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/deposit" element={<DepositMoney />} />
+            <Route path="/withdraw" element={<WithDrawMoney />} />
+            <Route path="/transfer" element={<TransferMoney />} />
+          </Route>
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/withdraw" element={<WithDrawMoney />} />
-          <Route path="/transfer" element={<TransferMoney />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </QueryClientProvider>
   );
 }
