@@ -27,7 +27,7 @@ app.post("/register", async (req, res) => {
     .post("https://project.ewallet.vn/e-wallet/public/api/register", {
       name: req.body.name,
       phone_number: req.body.phone_number,
-      checked: req.body.checked,
+      checked: true,
       password: req.body.password,
       password_confirmation: req.body.password_confirmation,
       address: req.body.address,
@@ -40,6 +40,109 @@ app.post("/register", async (req, res) => {
       return res.status(error.response.status).json(error.response.data);
     });
 });
+app.get("/all-linked-bank/:phone_number", async (req, res) => {
+  axios
+    .get(
+      "https://project.ewallet.vn/e-wallet/public/api/link-bank-account/" +
+        req.params.phone_number,
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: req.headers.authorization,
+        },
+      }
+    )
+    .then((response) => {
+      return res.status(response.status).json(response.data);
+    })
+    .catch((error) => {
+      return res.json(error);
+    });
+});
+app.get("/all-banks", async (req, res) => {
+  axios
+    .get("https://project.ewallet.vn/e-wallet/public/api/get-banks", {
+      headers: {
+        Accept: "application/json",
+        Authorization: req.headers.authorization,
+      },
+    })
+    .then((response) => {
+      return res.status(response.status).json(response.data);
+    })
+    .catch((error) => {
+      return res.json(error);
+    });
+});
+// app.post("/add-card", async (req, res) => {
+//   console.log("asdsadasd");
+//   axios
+//     .post(
+//       "https://project.ewallet.vn/e-wallet/public/api/link-bank-account",
+//       {
+//         phone_number: "0987123123",
+//         bank_account_number: 1111222233334452,
+//         bank_id: 1,
+//       },
+//       {
+//         headers: {
+//           Accept: "application/json",
+//           Authorization: "Bearer 180|YEOsI7svGuf2n2ppjSX0QtLG5fwVCKTAABFzbAMs",
+//         },
+//       }
+//     )
+//     .then((response) => {
+//       return res.status(response.status).json(response.data);
+//     })
+//     .catch((error) => {
+//       return res.json(error);
+//     });
+// });
+app.get("/trans-history/:phone_number", async (req, res) => {
+  axios
+    .get(
+      "https://project.ewallet.vn/e-wallet/public/api/payments/get-payments/" +
+        req.params.phone_number,
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: req.headers.authorization,
+        },
+      }
+    )
+    .then((response) => {
+      return res.status(response.status).json(response.data);
+    })
+    .catch((error) => {
+      return res.json(error.response.data);
+    });
+});
+app.post("/trans-to-bank", async (req, res) => {
+  axios
+    .post(
+      "https://project.ewallet.vn/e-wallet/public/api/payments/transfer-to-bank-account",
+      {
+        phone_number_source: req.body.phone_number_source,
+        money: req.body.money,
+        bank_id: req.body.bank_id,
+        bank_account_des: req.body.bank_account_des,
+        note: req.body.note,
+      },
+      {
+        headers: {
+          Accept: "application/json",
+          Authorization: req.headers.authorization,
+        },
+      }
+    )
+    .then((response) => {
+      return res.status(response.status).json(response.data);
+    })
+    .catch((error) => {
+      return res.json(error.response.data);
+    });
+});
+
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);
 });

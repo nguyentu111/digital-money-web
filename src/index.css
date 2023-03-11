@@ -24,11 +24,13 @@
     @apply p-2 flex flex-col gap-2;
   }
   .form-label {
+    @apply font-bold;
   }
   .form-input {
     @apply p-2 rounded-md border-none ring-2 ring-blue-300 outline-none focus:ring-blue-500;
   }
   .form-btn {
     @apply p-2 m-2 text-blue-600 bg-blue-200 rounded-md min-w-[80px];
+    width: -webkit-fill-available;
   }
 }

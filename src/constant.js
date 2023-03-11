@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios'
 export const axiosClient = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: 'http://localhost:4000',
   headers: {
-    Accept: "application/json",
+    Accept: 'application/json'
   },
-  xsrfCookieName: "XSRF-TOKEN", // mặc định
-  xsrfHeaderName: "X-XSRF-TOKEN",
-});
+  xsrfCookieName: 'XSRF-TOKEN', // mặc định
+  xsrfHeaderName: 'X-XSRF-TOKEN'
+})
