@@ -110,7 +110,7 @@ app.get('/trans-history/:phone_number', async (req, res) => {
     })
 })
 app.post('/trans-to-bank', async (req, res) => {
-  console.log(req.body)
+  console.log(req.body) // test
   axios
     .post(
       'https://project.ewallet.vn/e-wallet/public/api/payments/transfer-to-bank-account',
