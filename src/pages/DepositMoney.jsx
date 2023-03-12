@@ -1,5 +1,5 @@
 import Loading from '../components/Loading'
-import { useGetAllLinked } from '../hooks'
+import { useDeposit, useGetAllLinked } from '../hooks'
 import Header from '../patials/Header'
 import { useForm } from 'react-hook-form'
 import { deposit_schema } from '../utils/yup'
@@ -9,16 +9,18 @@ function DepositMoney() {
 
   if (isFetching) return <Loading />
   if (isError) return <Error error={error} />
-
-  console.log(data)
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(deposit_schema)
   })
-  const handleDeposit = (data) => {}
+  const mutate_deposit = useDeposit(reset)
+  const handleDeposit = (data) => {
+    mutate_deposit.mutate(data)
+  }
   return (
     <div className='m-auto flex flex-col h-screen'>
       <Header />

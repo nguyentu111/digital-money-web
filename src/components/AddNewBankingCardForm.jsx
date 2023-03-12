@@ -2,7 +2,6 @@ import { useGetAllBanks } from '../hooks'
 
 function AddNewBankingCardForm() {
   const { data } = useGetAllBanks()
-  console.log(data)
   return (
     <div className='p-4 min-w-[300px]'>
       <div className='form-control'>

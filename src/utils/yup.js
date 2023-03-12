@@ -62,14 +62,22 @@ export const signin_schema = yup.object({
   password: yup.string().required('Vui lòng nhập mật khẩu')
 })
 export const deposit_schema = yup.object({
-  money: yup.string().test('type', 'Số tiền ko hợp lệ', (val) => !isNaN(val))
+  money: yup.string().test('type', 'Số tiền ko hợp lệ', (val) => !isNaN(val)),
+  note: yup.string(),
+  linked_id: yup.number()
 })
 export const trans_money_schema = yup.object({
   money: yup
-    .string()
+    .number()
     .required('Vui lòng nhập số tiền')
     .test('type', 'Số tiền ko hợp lệ', (val) => !isNaN(val)),
-  bank_account_des: yup.number().required('Vui lòng nhập số tài khoản'),
+  bank_account_des: yup.string().required('Vui lòng nhập số tài khoản'),
   bank_id: yup.number(),
   note: yup.string()
+})
+export const widthDraw_schema = yup.object({
+  money: yup
+    .number()
+    .required('Vui lòng nhập số tiền')
+    .test('type', 'Số tiền ko hợp lệ', (val) => !isNaN(val))
 })

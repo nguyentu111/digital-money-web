@@ -21,7 +21,7 @@ export default function TransHistory() {
                 <img
                   alt=''
                   className='rounded-full w-12 h-12 border-2 '
-                  src={v.type === '1' ? ChuyenTien : v.type === '2' ? RutTien : NapTien}
+                  src={v.type === '2' || v.type === '1' ? ChuyenTien : v.type === '3' ? NapTien : RutTien}
                 />
               </div>
               <div className='flex flex-col'>

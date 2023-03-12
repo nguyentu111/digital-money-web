@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useGetAllBanks, useTransToBank } from '../hooks'
+import { useGetAllBanks, useTransToBank, useTransToWallet } from '../hooks'
 import Header from '../patials/Header'
 import Loading from '../components/Loading'
 import Error from '../components/Error'
@@ -9,15 +9,27 @@ import { yupResolver } from '@hookform/resolvers/yup'
 function TransferMoney() {
   const [transType, setTransType] = useState(1)
   const { data, isFetching, isError, error } = useGetAllBanks()
-  const mutate_trans_to_bank = useTransToBank()
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(trans_money_schema)
   })
-  const handleTrans = (data) => console.log(data)
+  const mutate_trans_to_bank = useTransToBank(reset)
+  const mutate_trans_to_wallet = useTransToWallet(reset)
+  const handleTrans = (data) => {
+    const { bank_account_des, ...rest } = data
+    if (transType === 1) {
+      mutate_trans_to_wallet.mutate({
+        ...rest,
+        phone_number_des: data.bank_account_des
+      })
+    } else {
+      mutate_trans_to_bank.mutate(data)
+    }
+  }
   if (isFetching) return <Loading />
   if (isError) return <Error error={error} />
 

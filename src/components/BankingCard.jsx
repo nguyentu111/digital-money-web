@@ -1,8 +1,10 @@
 import Chip from '../assets/svgs/chip.svg'
+import { useDeleteCard } from '../hooks'
 function BankingCard({ data }) {
+  const mutate_delete_card = useDeleteCard()
   const handleDeleteCard = () => {
     if (window.confirm('Xóa liên kết thẻ này ?') == true) {
-      console.log('xoa the')
+      mutate_delete_card.mutate(123)
     }
   }
   return (
