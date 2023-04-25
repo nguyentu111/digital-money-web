@@ -13,8 +13,6 @@ export default function TransHistory() {
       <div className='p-3 text-lg font-bold'>Lịch sử giao dịch</div>
       <div className='max-h-[400px] overflow-y-scroll'>
         {data.data.map((v) => {
-          const date = v.created_at.substring(0, 10)
-          const time = v.created_at.substring(11, 16)
           return (
             <div className='flex gap-3 p-2' key={v.id}>
               <div className='flex-shrink-0'>
@@ -27,7 +25,7 @@ export default function TransHistory() {
               <div className='flex flex-col'>
                 <span className='text-lg font-bold'>{v.note}</span>
                 <div className='flex flex-col'>
-                  <span>{time + ' ' + date}</span>
+                  <span>{v.create}</span>
                   <span className='font-bold'>{Number.parseInt(v.money)} vnd</span>
                 </div>
               </div>

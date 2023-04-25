@@ -54,8 +54,14 @@ function WithDrawMoney() {
               <label className='form-label'>Ghi chú</label>
               <input type='text' className='form-input' {...register('note')} />
             </div>
-            <button type={'submit'} className='form-btn'>
-              Rút tiền
+            <button type={'submit'} className='form-btn' disabled={mutate_widraw.isLoading}>
+              {mutate_widraw.isLoading ? (
+                <div className='animate-spin'>
+                  <i className='fa-solid fa-spinner'></i>
+                </div>
+              ) : (
+                'Rút tiền'
+              )}
             </button>
           </form>
         </div>

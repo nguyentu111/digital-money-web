@@ -11,7 +11,7 @@ export default function Header() {
       <div className='flex justify-between max-w-[1200px] m-auto items-center '>
         <img onClick={() => nav('/')} className='p-2 w-[120px] h-[60px] px-2 cursor-pointer' src={logo} />
         <div className='flex gap-3 p-2'>
-          <div>Nguyễn Anh Tú</div>
+          <div>{JSON.parse(localStorage.getItem('user'))?.userInfo?.name}</div>
           <div className='hover:underline cursor-pointer' onClick={handleSignOut}>
             Đăng xuất{' '}
           </div>

@@ -192,6 +192,8 @@ app.post('/deposit-money', (req, res) => {
       }
     )
     .then((response) => {
+      if (response.data.status === 'fail') response.status = 400
+      console.log(response.data)
       return res.status(response.status).json(response.data)
     })
     .catch((error) => {
@@ -200,17 +202,39 @@ app.post('/deposit-money', (req, res) => {
 })
 app.delete('/delete-card/:id', (req, res) => {
   axios
-    .delete('https://project.ewallet.vn/e-wallet/public/api/link-bank-account/' + req.body.card_id, {
+    .delete('https://project.ewallet.vn/e-wallet/public/api/link-bank-account/' + req.params.id, {
       headers: {
         Accept: 'application/json',
         Authorization: req.headers.authorization
       }
     })
     .then((response) => {
+      console.log(response.status, response.data, req.params.id)
       return res.status(response.status).json(response.data)
     })
     .catch((error) => {
       return res.json(error.response.data)
+    })
+})
+app.post('/add-card', (req, res) => {
+  axios
+    .post(
+      'https://project.ewallet.vn/e-wallet/public/api/link-bank-account',
+      {
+        ...req.body
+      },
+      {
+        headers: {
+          Accept: 'application/json',
+          Authorization: req.headers.authorization
+        }
+      }
+    )
+    .then((response) => {
+      return res.status(response.status).json(response.data)
+    })
+    .catch((error) => {
+      return res.json(error.response)
     })
 })
 app.listen(port, () => {

@@ -6,7 +6,6 @@ import { deposit_schema } from '../utils/yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 function DepositMoney() {
   const { data, isFetching, isError, error } = useGetAllLinked()
-
   if (isFetching) return <Loading />
   if (isError) return <Error error={error} />
   const {
@@ -47,8 +46,14 @@ function DepositMoney() {
               <label className='form-label'>Ghi chú</label>
               <input type='text' className='form-input' {...register('note')} />
             </div>
-            <button className='form-btn' type='submit'>
-              Nạp
+            <button className='form-btn' type='submit' disabled={mutate_deposit.isLoading}>
+              {mutate_deposit.isLoading ? (
+                <div className='animate-spin'>
+                  <i className='fa-solid fa-spinner'></i>
+                </div>
+              ) : (
+                'Nạp'
+              )}
             </button>
           </form>
         </div>

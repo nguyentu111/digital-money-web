@@ -60,6 +60,7 @@ export const useDeposit = (reset) => {
         '/deposit-money',
         {
           ...data,
+          money: Number.parseInt(data.money),
           phone_number_des: user.userInfo.phone_number
         },
         {
@@ -75,6 +76,9 @@ export const useDeposit = (reset) => {
         queryClient.invalidateQueries('balance', { refetchInactive: true })
         queryClient.invalidateQueries('tran-history', { refetchInactive: true })
         reset()
+      },
+      onError: (err) => {
+        toast.error(err.response.data.msg)
       }
     }
   )
@@ -164,6 +168,34 @@ export const useDeleteCard = () => {
       },
       onError: (error) => {
         toast.error('Xóa thẻ thất bại')
+      }
+    }
+  )
+}
+export const useAddCard = () => {
+  const queryClient = useQueryClient()
+  const user = JSON.parse(localStorage.getItem('user'))
+  return useMutation(
+    async (data) =>
+      axiosClient.post(
+        '/add-card/',
+        {
+          ...data,
+          phone_number: user.userInfo.phone_number
+        },
+        {
+          headers: {
+            authorization: 'Bearer ' + user.token
+          }
+        }
+      ),
+    {
+      onSuccess: () => {
+        toast.success('them thanh cong')
+        queryClient.invalidateQueries('all-linked', { refetchInactive: true })
+      },
+      onError: (error) => {
+        toast.error('them thất bại')
       }
     }
   )

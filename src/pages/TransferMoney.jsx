@@ -81,7 +81,13 @@ function TransferMoney() {
               <p className='text-red-500'>{errors.note?.message}</p>
             </div>
             <button type='submit' className='form-btn'>
-              Chuyển tiền
+              {mutate_trans_to_bank.isLoading || mutate_trans_to_wallet.isLoading ? (
+                <div className='animate-spin'>
+                  <i className='fa-solid fa-spinner'></i>
+                </div>
+              ) : (
+                'Chuyển tiền'
+              )}
             </button>
           </form>
         </div>

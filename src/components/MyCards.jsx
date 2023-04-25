@@ -12,6 +12,7 @@ function MyCards() {
   const { data, isFetching, isError, error } = useGetAllLinked()
   if (isError) return <ErrorUi error={error} />
   if (isFetching) return <Loading />
+  console.log(data)
   return (
     <div className='p-4 rounded-lg shadow-lg flex-1'>
       <div className='flex justify-between my-2'>
