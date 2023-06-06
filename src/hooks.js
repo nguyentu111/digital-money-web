@@ -116,7 +116,7 @@ export const useTransToWallet = (reset) => {
   const user = JSON.parse(localStorage.getItem('user'))
   return useMutation(
     async (data) =>
-      axiosClient.post(
+      await axiosClient.post(
         '/trans-to-wallet',
         { ...data, phone_number_source: user.userInfo.phone_number },
         {
@@ -126,12 +126,16 @@ export const useTransToWallet = (reset) => {
         }
       ),
     {
-      onSuccess: (data) => {
-        toast.success('Chuyen tien thanh cong')
+      onSuccess: (res) => {
+        if (res.data.status == 'fail') {
+          toast.error(res.data?.msg)
+        } else {
+          toast.success('Chuyen tien thanh cong')
 
-        reset()
-        queryClient.invalidateQueries('tran-history', { refetchInactive: true })
-        queryClient.invalidateQueries('balance', { refetchInactive: true })
+          reset()
+          queryClient.invalidateQueries('tran-history', { refetchInactive: true })
+          queryClient.invalidateQueries('balance', { refetchInactive: true })
+        }
       },
       onError: (error) => {
         if (error.response.data.errors.phone_number_des) {
@@ -177,7 +181,7 @@ export const useAddCard = () => {
   const user = JSON.parse(localStorage.getItem('user'))
   return useMutation(
     async (data) =>
-      axiosClient.post(
+      await axiosClient.post(
         '/add-card/',
         {
           ...data,
@@ -190,12 +194,18 @@ export const useAddCard = () => {
         }
       ),
     {
-      onSuccess: () => {
-        toast.success('them thanh cong')
-        queryClient.invalidateQueries('all-linked', { refetchInactive: true })
+      onSuccess: (res) => {
+        console.log(res)
+        if (res.data.status === 'fail') {
+          toast.error(res?.data?.msg)
+        } else {
+          toast.success('them thanh cong')
+          queryClient.invalidateQueries('all-linked', { refetchInactive: true })
+        }
       },
       onError: (error) => {
-        toast.error('them thất bại')
+        toast.error('thêm thẻ thất bại')
+        console.log(error)
       }
     }
   )

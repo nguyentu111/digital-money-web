@@ -24,10 +24,11 @@ function TransferMoney() {
     if (transType === 1) {
       mutate_trans_to_wallet.mutate({
         ...rest,
-        phone_number_des: data.bank_account_des
+        phone_number_des: data.bank_account_des,
+        note: 'Chuyển tiền tới ví'
       })
     } else {
-      mutate_trans_to_bank.mutate(data)
+      mutate_trans_to_bank.mutate({ ...data, note: 'Chuyển tiền tới ngân hàng' })
     }
   }
   if (isFetching) return <Loading />
@@ -74,11 +75,6 @@ function TransferMoney() {
               <label className='form-label'>Số tiền</label>
               <input type='number' className='form-input' {...register('money')} />
               <p className='text-red-500'>{errors.money?.message}</p>
-            </div>
-            <div className='form-control'>
-              <label className='form-label'>Ghi chú</label>
-              <input type='text' className='form-input' {...register('note')} />
-              <p className='text-red-500'>{errors.note?.message}</p>
             </div>
             <button type='submit' className='form-btn'>
               {mutate_trans_to_bank.isLoading || mutate_trans_to_wallet.isLoading ? (

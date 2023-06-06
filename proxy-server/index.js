@@ -40,6 +40,19 @@ app.post('/register', async (req, res) => {
       return res.status(error.response.status).json(error.response.data)
     })
 })
+app.post('/fake-otp', async (req, res) => {
+  axios
+    .post('https://project.ewallet.vn/e-wallet/public/api/fake-otp', {
+      phone_number: req.body.phone_number
+    })
+    .then((response) => {
+      console.log(response.data)
+      return res.status(response.status).json(response.data)
+    })
+    .catch((error) => {
+      return res.status(error.response.status).json(error.response.data)
+    })
+})
 app.get('/all-linked-bank/:phone_number', async (req, res) => {
   axios
     .get('https://project.ewallet.vn/e-wallet/public/api/link-bank-account/' + req.params.phone_number, {
@@ -234,7 +247,7 @@ app.post('/add-card', (req, res) => {
       return res.status(response.status).json(response.data)
     })
     .catch((error) => {
-      return res.json(error.response)
+      return res.status(error.response.status).json(error.response)
     })
 })
 app.listen(port, () => {

@@ -18,7 +18,7 @@ function DepositMoney() {
   })
   const mutate_deposit = useDeposit(reset)
   const handleDeposit = (data) => {
-    mutate_deposit.mutate(data)
+    mutate_deposit.mutate({ ...data, note: 'Nạp tiền từ thẻ vào ví' })
   }
   return (
     <div className='m-auto flex flex-col h-screen'>
@@ -42,10 +42,7 @@ function DepositMoney() {
               <input type='text' className='form-input' {...register('money')} />
               <p className='text-red-500'>{errors.money?.message}</p>
             </div>
-            <div className='form-control'>
-              <label className='form-label'>Ghi chú</label>
-              <input type='text' className='form-input' {...register('note')} />
-            </div>
+
             <button className='form-btn' type='submit' disabled={mutate_deposit.isLoading}>
               {mutate_deposit.isLoading ? (
                 <div className='animate-spin'>

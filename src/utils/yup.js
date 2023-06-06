@@ -62,15 +62,18 @@ export const signin_schema = yup.object({
   password: yup.string().required('Vui lòng nhập mật khẩu')
 })
 export const deposit_schema = yup.object({
-  money: yup.string().test('type', 'Số tiền ko hợp lệ', (val) => !isNaN(val) && val.length > 0),
-  note: yup.string(),
+  money: yup
+    .string()
+    .test('type', 'Số tiền ko hợp lệ', (val) => !isNaN(val) && val.length > 0)
+    .test('type', 'Số tiền nạp phải lớn hơn hoặc bằng 10.000đ', (val) => Number.parseInt(val) >= 10000),
   linked_id: yup.number()
 })
 export const trans_money_schema = yup.object({
   money: yup
     .number()
     .required('Vui lòng nhập số tiền')
-    .test('type', 'Số tiền ko hợp lệ', (val) => !isNaN(val)),
+    .test('type', 'Số tiền ko hợp lệ', (val) => !isNaN(val))
+    .test('type', 'Số tiền rút phải lớn hơn hoặc bằng 10.000đ', (val) => val >= 10000),
   bank_account_des: yup.string().required('Vui lòng nhập số tài khoản'),
   bank_id: yup.number(),
   note: yup.string()
@@ -80,6 +83,7 @@ export const widthDraw_schema = yup.object({
     .number()
     .required('Vui lòng nhập số tiền')
     .test('type', 'Số tiền ko hợp lệ', (val) => !isNaN(val))
+    .test('type', 'Số tiền rút phải lớn hơn hoặc bằng 10.000đ', (val) => val >= 10000)
 })
 export const add_card_schema = yup.object({
   bank_account_number: yup.string().required('Vui lòng nhập số tài khoản'),

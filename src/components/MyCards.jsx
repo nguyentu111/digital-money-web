@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { axiosClient } from '../constant'
 import { useGetAllBanks, useGetAllLinked } from '../hooks'
@@ -10,9 +10,12 @@ import Loading from './Loading'
 function MyCards() {
   const [isAdding, setIsAdding] = useState(false)
   const { data, isFetching, isError, error } = useGetAllLinked()
+  useEffect(() => {
+    if (!data) return
+    console.log(data)
+  }, [data])
   if (isError) return <ErrorUi error={error} />
   if (isFetching) return <Loading />
-  console.log(data)
   return (
     <div className='p-4 rounded-lg shadow-lg flex-1'>
       <div className='flex justify-between my-2'>

@@ -25,7 +25,7 @@ function WithDrawMoney() {
       money: data.money,
       bank_id: id,
       bank_account_des: bank_number,
-      note: data.note
+      note: 'Rút tiền về thẻ'
     })
   }
   return (
@@ -49,10 +49,6 @@ function WithDrawMoney() {
               <label className='form-label'>Số tiền</label>
               <input type='number' className='form-input' {...register('money')} />
               <p className='text-red-500'>{errors.money?.message}</p>
-            </div>
-            <div className='form-control'>
-              <label className='form-label'>Ghi chú</label>
-              <input type='text' className='form-input' {...register('note')} />
             </div>
             <button type={'submit'} className='form-btn' disabled={mutate_widraw.isLoading}>
               {mutate_widraw.isLoading ? (
